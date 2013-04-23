@@ -2,7 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-  <bean id="showMembers" class="vmware.au.se.isqlfire.reports.GenericQuery">
+  <bean id="showMembers" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
     <property name="queryDescription">
       <value>Show All Members</value>
     </property>
@@ -13,7 +13,7 @@
       ]]></value>
     </property>
   </bean>
-  <bean id="viewSchemas" class="vmware.au.se.isqlfire.reports.GenericQuery">
+  <bean id="viewSchemas" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
     <property name="queryDescription">
       <value>View Schemas</value>
     </property>
@@ -23,7 +23,7 @@
       ]]></value>
     </property>
   </bean>
-  <bean id="schemaTables" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTables" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema</value>
     </property>
@@ -42,7 +42,7 @@
     </property>
   </bean>
 
-  <bean id="schemaTablesWithPersistence" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTablesWithPersistence" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema with persistence turned on</value>
     </property>
@@ -62,7 +62,7 @@
     </property>
   </bean>
 
-  <bean id="schemaTablesWithPartition" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTablesWithPartition" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema with PARTITION data policy</value>
     </property>
@@ -82,7 +82,7 @@
     </property>
   </bean>
 
-  <bean id="schemaTablesPartOfServerGroup" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTablesPartOfServerGroup" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>View Tables for a given Schema and Server Group</value>
     </property>
@@ -103,7 +103,7 @@
     </property>
   </bean>
  
-   <bean id="schemaTablesWithPartitionAttrs" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+   <bean id="schemaTablesWithPartitionAttrs" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>View PARTITION attributes for all PARTITION tables in a given schema</value>
     </property>
@@ -123,7 +123,7 @@
     </property>
   </bean>
 
-  <bean id="schemaTablesWithEvictionExpirationAtrs" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTablesWithEvictionExpirationAtrs" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema with their eviction/expiration attributes</value>
     </property>
@@ -142,7 +142,7 @@
     </property>
   </bean>
 
-  <bean id="schemaTablesWithPersistenceAtrs" class="vmware.au.se.isqlfire.reports.ParameterQuery">
+  <bean id="schemaTablesWithPersistenceAtrs" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema with their persistence attributes</value>
     </property>
@@ -163,7 +163,7 @@
   </bean>
   
   <!-- Query List of About DB Queries-->
-  <bean id="queryListAbout" class="vmware.au.se.isqlfire.reports.QueryList">
+  <bean id="queryListAbout" class="vmware.au.se.sqlfireweb.reports.QueryList">
     <property name="description">
       <value>About SQLFire Distributed System</value>
     </property>   
@@ -180,7 +180,7 @@
   </bean>
 
   <!-- Query List of Table DB Queries-->
-  <bean id="queryListTable" class="vmware.au.se.isqlfire.reports.QueryList">
+  <bean id="queryListTable" class="vmware.au.se.sqlfireweb.reports.QueryList">
     <property name="description">
       <value>Tables</value>
     </property>   

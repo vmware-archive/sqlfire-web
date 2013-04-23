@@ -22,7 +22,7 @@ background-color: #D0DCE0;
 <h2>SQLFire*Web Login Page</h2>
 
 <div class="notice">
-Supports SQLFire 1.0.x
+Supports SQLFire 1.1.x
 </div>
 
 <c:if test="${!empty error}">

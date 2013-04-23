@@ -177,9 +177,9 @@ public class QueryUtil
 				  "group by object_type " +
 				  "union " + 
 				  "select object_type, count(*) " + 
-				  "from (select index, 'Index' as OBJECT_TYPE FROM sys.indexes where \"SCHEMA\" = ?) z " +
+				  //"from (select index, 'Index' as OBJECT_TYPE FROM sys.indexes where \"SCHEMA\" = ?) z " +
 				  // add when using latest version
-				  //"from (select indexname, 'Index' as OBJECT_TYPE FROM sys.indexes where schemaname = ?) z " +
+				  "from (select indexname, 'Index' as OBJECT_TYPE FROM sys.indexes where schemaname = ?) z " +
 				  "group by object_type " + 
 				  "union " +
 				  "select object_type, count(*) " +  
