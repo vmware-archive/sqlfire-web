@@ -131,7 +131,7 @@
 <div id="selflink" class="print_ignore">
   <font size="-2">
   Ver 1.1 - &copy; 2013. All Rights Reserved <br />
-  <a href="mailto:papicella@vmware.com">Pas Apicella</a>
+  <a href="mailto:papicella@gopivotal.com">Pas Apicella</a>
   </font>
 </div>
 

@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
   <bean id="showMembers" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
     <property name="queryDescription">
       <value>Show All Members</value>
@@ -13,6 +14,7 @@
       ]]></value>
     </property>
   </bean>
+  
   <bean id="viewSchemas" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
     <property name="queryDescription">
       <value>View Schemas</value>
@@ -23,6 +25,7 @@
       ]]></value>
     </property>
   </bean>
+  
   <bean id="schemaTables" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Tables in a given Schema</value>
@@ -161,7 +164,45 @@
       ]]></value>
     </property>
   </bean>
-  
+
+  <bean id="schemaIndexes" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Indexes in a given Schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select distinct indexname, "UNIQUE", tablename, indextype, COLUMNS_AND_ORDER, schemaname
+	    from   sys.indexes 
+		where  schemaname = ?
+      ]]></value>
+    </property>
+  </bean>
+
+  <bean id="schemaTableIndexes" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Indexes in a given Schema for a given Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+      <entry key="2" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select distinct indexname, "UNIQUE", tablename, indextype, COLUMNS_AND_ORDER, schemaname
+	    from   sys.indexes 
+		where  schemaname = ?
+		and    tablename = ?
+      ]]></value>
+    </property>
+  </bean>
+   
   <!-- Query List of About DB Queries-->
   <bean id="queryListAbout" class="vmware.au.se.sqlfireweb.reports.QueryList">
     <property name="description">
@@ -179,6 +220,27 @@
     </property>
   </bean>
 
+  <bean id="schemaViews" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Views in a given Schema</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Schema Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select t.tableschemaname, t.tablename "Index Name", v.viewdefinition, t.datapolicy 
+		from SYS.SYSVIEWS v, SYS.SYSSCHEMAS s, sys.systables t 
+		where s.schemaid = v.compilationschemaid 
+		and   t.tableid = v.tableid 
+		and   s.schemaname = ?
+		order by 1, 2
+      ]]></value>
+    </property>
+  </bean>
+  
   <!-- Query List of Table DB Queries-->
   <bean id="queryListTable" class="vmware.au.se.sqlfireweb.reports.QueryList">
     <property name="description">
@@ -208,6 +270,37 @@
         <value>Tables in a given Schema with their persistence attributes</value>
        </entry>      
        
+      </map>
+    </property>
+  </bean>
+
+  <!-- Query List of Index DB Queries-->
+  <bean id="queryListIndex" class="vmware.au.se.sqlfireweb.reports.QueryList">
+    <property name="description">
+      <value>Indexes</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="schemaIndexes">
+        <value>View Indexes for a given Schema</value>
+       </entry>
+       <entry key="schemaTableIndexes">
+        <value>Indexes in a given Schema for a given Table</value>
+       </entry>
+      </map>
+    </property>
+  </bean>
+  
+  <!-- Query List of Table DB Queries-->
+  <bean id="queryListView" class="vmware.au.se.sqlfireweb.reports.QueryList">
+    <property name="description">
+      <value>Views</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="schemaViews">
+        <value>Views for a given Schema</value>
+       </entry>
       </map>
     </property>
   </bean>

@@ -1,8 +1,9 @@
 TODO
 ----
 
-1. Provide a graphical representation of SQLFire
-2. Generate DDL from any schema object
-3. Restful API to login and then access data pages (will take some time to set this up correctly)
-4. Save data to XLS file.
+1. Add Members on The left Hand Side
+2. It will be nice if the various data loading - exporting, importing utilities available via 
+the 'sqlf' command line is also incorporated. i.e. DDLUtils commands
+3. Will be nice to add admin capabilities like - backup, restore, etc. Maybe, just have to provide 
+a server side destination directory.
 
