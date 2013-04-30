@@ -29,6 +29,12 @@
 <div id="left_tableList">
  <ul id="subel0">
   <li>
+    <a href="sqlfireweb/members" title="Members">
+      <img class="icon" src="./themes/original/img/s_lang.png" width="16" height="16" alt="Members" />
+      Members
+    </a>
+  </li>
+  <li>
     <a href="sqlfireweb/query" title="SQL Worksheet">
       <img class="icon" src="./themes/original/img/b_sql.png" width="16" height="16" alt="SQL Worksheet" />
       Worksheet

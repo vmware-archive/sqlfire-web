@@ -40,10 +40,11 @@ public class MemberController
     	List<Member> members = mbrDAO.retrieveMembers
     			((String)session.getAttribute("user_key"));
     	
+    	model.addAttribute("members", members);
     	model.addAttribute("records", members.size());
     	model.addAttribute("estimatedrecords", members.size());
     	        
-    	// This will resolve to /WEB-INF/jsp/diskstores.jsp
+    	// This will resolve to /WEB-INF/jsp/members.jsp
     	return "members";
     }
 
