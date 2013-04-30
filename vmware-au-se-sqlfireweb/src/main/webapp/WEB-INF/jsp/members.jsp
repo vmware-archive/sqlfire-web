@@ -24,7 +24,7 @@
 <jsp:include page="toolbar.jsp" flush="true" />
 
 <div class="notice">
-Found ${records} members(s).
+Found ${records} member(s).
 </div>
 <br />
 
