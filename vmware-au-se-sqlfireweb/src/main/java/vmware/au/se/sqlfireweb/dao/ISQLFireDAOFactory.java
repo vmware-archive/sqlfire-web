@@ -12,6 +12,8 @@ import vmware.au.se.sqlfireweb.dao.gatewaysenders.GatewaySenderDAO;
 import vmware.au.se.sqlfireweb.dao.gatewaysenders.GatewaySenderDAOImpl;
 import vmware.au.se.sqlfireweb.dao.indexes.IndexDAO;
 import vmware.au.se.sqlfireweb.dao.indexes.IndexDAOImpl;
+import vmware.au.se.sqlfireweb.dao.members.MemberDAO;
+import vmware.au.se.sqlfireweb.dao.members.MemberDAOImpl;
 import vmware.au.se.sqlfireweb.dao.stored.StoredProcDAO;
 import vmware.au.se.sqlfireweb.dao.stored.StoredProcDAOImpl;
 import vmware.au.se.sqlfireweb.dao.tables.TableDAO;
@@ -78,5 +80,10 @@ public class ISQLFireDAOFactory
 	 public static DiskStoreDAO getDiskStoreDAO()
 	 {
 		 return new DiskStoreDAOImpl();
+	 }
+	 
+	 public static MemberDAO getMemberDAO()
+	 {
+		 return new MemberDAOImpl();
 	 }
 }
