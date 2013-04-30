@@ -41,15 +41,6 @@ public class DiskStoreController
 		int startAtIndex = 0, endAtIndex = 0;
 		javax.servlet.jsp.jstl.sql.Result dataLocationResult, expirationEvictionResult, allTableInfoResult, tableStructure = null;
 		String schema = null; 
-		
-    	if (session.getAttribute("user_key") == null)
-    	{
-    		logger.debug("user_key is null new Login required");
-    		response.sendRedirect(request.getContextPath() + "/isqlfire/login");	
-    		return null;
-    	}
-    	
-    	logger.debug("Received request to show tables");
     	
     	DiskStoreDAO dsDAO = ISQLFireDAOFactory.getDiskStoreDAO();
     	Result result = new Result();
