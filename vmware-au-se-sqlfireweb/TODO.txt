@@ -1,9 +1,10 @@
 TODO
 ----
 
-1. Add Members on The left Hand Side
-2. It will be nice if the various data loading - exporting, importing utilities available via 
+1. It will be nice if the various data loading - exporting, importing utilities available via 
 the 'sqlf' command line is also incorporated. i.e. DDLUtils commands
-3. Will be nice to add admin capabilities like - backup, restore, etc. Maybe, just have to provide 
+2. Will be nice to add admin capabilities like - backup, restore, etc. Maybe, just have to provide 
 a server side destination directory.
+3. Add to reports queries such as show
 
+  - view async event listener for TABLE (Table queries)
