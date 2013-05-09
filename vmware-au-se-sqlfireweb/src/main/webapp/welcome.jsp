@@ -14,11 +14,11 @@
 
 <h2>SQLFire*Web - Welcome Page</h2>
 
-<a href="isqlfire/home" target="_top" title="Home">
+<a href="sqlfireweb/home" target="_top" title="Home">
   <img class="icon" src="./themes/original/img/b_home.png" width="16" height="16" alt="Home" />
   Home Page
 </a>&nbsp; | &nbsp;
-<a href="isqlfire/preferences" title="Preferences">
+<a href="sqlfireweb/preferences" title="Preferences">
   <img class="icon" src="./themes/original/img/b_props.png" width="16" height="16" alt="SQLFire Preferences" />
   Preferences
 </a>&nbsp; | &nbsp;
@@ -26,7 +26,7 @@
   <img class="icon" src="./themes/original/img/b_docs.png" width="16" height="16" alt="SQLFire doco" />
   SQLFire Documentation
 </a>&nbsp; | &nbsp;
-<a href="isqlfire/viewconmap" title="View Connection Map">
+<a href="sqlfireweb/viewconmap" title="View Connection Map">
   <img class="icon" src="./themes/original/img/Connection.gif" width="16" height="16" alt="View Connections Map" />
   Connection Map
 </a>
