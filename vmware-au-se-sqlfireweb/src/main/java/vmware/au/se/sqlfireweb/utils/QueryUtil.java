@@ -15,6 +15,56 @@ import vmware.au.se.sqlfireweb.beans.CommandResult;
 
 public class QueryUtil 
 {
+	  static public String runExplainPlan (Connection conn, String query) throws SQLException
+	  {
+		Statement stmt = null;
+		String sql = "explain %s";
+		ResultSet rset = null;
+		String result = null;
+		try 
+		{
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(String.format(sql, query));
+			// should only return one row
+			rset.next();
+			
+			result = rset.getString(1);
+		
+		} 
+		finally
+		{
+			if (stmt != null)
+			{
+				try 
+				{
+					stmt.close();
+				} 
+				catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			if (rset != null)
+			{
+				try 
+				{
+					stmt.close();
+				} 
+				catch (SQLException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}		
+		
+		return result;
+		  
+	  }
+	  
 	  static public Result runQuery (Connection conn, String query, int maxrows) throws SQLException
 	  {
 	    Statement stmt  = null;

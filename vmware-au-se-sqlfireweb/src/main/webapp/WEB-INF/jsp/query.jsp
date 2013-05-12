@@ -110,6 +110,18 @@ background-color: #C4D4E2;
   	</div>
 </c:if>
 
+<c:if test="${!empty explainresult}">
+ <h3>Explain Result</h3>
+ <table id="table_results" class="data">
+   <tbody>
+     <tr class="odd">
+      <td><pre>${explainresult}</pre></td>
+     </tr>
+   </tbody>
+ </table>
+ <br />
+</c:if>
+
 <br />
 <form action="query" method="post" enctype="multipart/form-data" onsubmit="return checkFile();">
 SQL File : <input id="sqlfilename" type="file" name="sqlfilename" size="20" maxlength="300" />
@@ -166,6 +178,11 @@ Display Elapsed Time?
 <form:select path="elapsedTime" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
    <form:option value="Y">Yes</form:option>          
+</form:select>
+Run Explain?
+<form:select path="explainPlan" style="margin: 0 2em 0 2em;">
+   <form:option value="N">No</form:option>
+   <form:option value="Y">Yes</form:option>        
 </form:select>
 <input type="image" src="../themes/original/img/Execute.png" name="SQL" />
 <div class="clearfloat"></div>

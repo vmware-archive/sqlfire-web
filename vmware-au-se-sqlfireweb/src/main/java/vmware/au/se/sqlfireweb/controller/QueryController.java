@@ -129,25 +129,34 @@ public class QueryController
 			    	{
 			    		try
 			    		{
-			    			long start = System.currentTimeMillis();
-				    		Result res = QueryUtil.runQuery(conn, s, userPrefs.getMaxRecordsinSQLQueryWindow());
-				    		long end = System.currentTimeMillis();
-				    		
-				  	        double timeTaken = new Double(end - start).doubleValue();
-					        DecimalFormat df = new DecimalFormat("#.##");
-				    		
-				    		model.addAttribute("queryResults", res);
-				    		model.addAttribute("query", query);
-				    		model.addAttribute("querysql", s);
-				    		if (queryAttribute.getQueryCount().equals("Y"))
-				    		{
-				    			model.addAttribute("queryResultCount", res.getRowCount());
-				    		}
-				    		
-				    		if (queryAttribute.getElapsedTime().equals("Y"))
-				    		{
-				    			model.addAttribute("elapsedTime", df.format(timeTaken/1000));
-				    		}
+			    			if (queryAttribute.getExplainPlan().equals("Y"))
+			    			{
+			    				logger.debug("Need to run explain plan");
+			    				model.addAttribute("explainresult", QueryUtil.runExplainPlan(conn, query));
+			    			}
+			    			else
+			    			{
+				    				
+				    			long start = System.currentTimeMillis();
+					    		Result res = QueryUtil.runQuery(conn, s, userPrefs.getMaxRecordsinSQLQueryWindow());
+					    		long end = System.currentTimeMillis();
+					    		
+					  	        double timeTaken = new Double(end - start).doubleValue();
+						        DecimalFormat df = new DecimalFormat("#.##");
+					    		
+					    		model.addAttribute("queryResults", res);
+					    		model.addAttribute("query", query);
+					    		model.addAttribute("querysql", s);
+					    		if (queryAttribute.getQueryCount().equals("Y"))
+					    		{
+					    			model.addAttribute("queryResultCount", res.getRowCount());
+					    		}
+					    		
+					    		if (queryAttribute.getElapsedTime().equals("Y"))
+					    		{
+					    			model.addAttribute("elapsedTime", df.format(timeTaken/1000));
+					    		}
+			    			}
 			    		}
 			    		catch (Exception ex)
 			    		{

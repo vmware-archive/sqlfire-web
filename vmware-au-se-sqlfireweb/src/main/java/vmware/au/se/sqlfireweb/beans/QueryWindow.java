@@ -5,9 +5,11 @@ public class QueryWindow
 	private String query;
 	private String queryCount;
 	private String elapsedTime;
-	
+	private String explainPlan;
+	 
 	public QueryWindow()
 	{	
+	
 	}
 	
 	public QueryWindow(String query, String queryCount, String elapsedTime) 
@@ -44,14 +46,23 @@ public class QueryWindow
 	}
 
 	public void setElapsedTime(String elapsedTime) {
-		this.elapsedTime = elapsedTime;
+		this.elapsedTime = elapsedTime; 
 	}
 
 	
+	public String getExplainPlan() {
+		return explainPlan;
+	}
+
+	public void setExplainPlan(String explainPlan) {
+		this.explainPlan = explainPlan;
+	}
+
 	@Override
 	public String toString() {
 		return "QueryWindow [query=" + query + ", queryCount=" + queryCount
-				+ ", elapsedTime=" + elapsedTime + "]";
+				+ ", elapsedTime=" + elapsedTime + ", explainPlan="
+				+ explainPlan + "]";
 	}
   
 	
