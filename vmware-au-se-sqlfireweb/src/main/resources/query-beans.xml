@@ -25,6 +25,22 @@
       ]]></value>
     </property>
   </bean>
+
+  <bean id="viewMembersWithAsync" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>members running AsyncEventListeners/DBSynchronizers with status</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
+		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
+		where groupsintersect(a.SERVER_GROUP, m.SERVERGROUPS)
+		and groupsintersect(t.ASYNCLISTENERS, a.ID)
+		and groupsintersect(t.schemaid, s.schemaid)
+        order by t.tablename, m.id
+      ]]></value>
+    </property>
+  </bean>
   
   <bean id="schemaTables" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
@@ -165,6 +181,27 @@
     </property>
   </bean>
 
+  <bean id="asyncListenersForTable" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Async Event Listeners for a Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
+		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
+		where t.tablename = ?
+		and groupsintersect(a.SERVER_GROUP, m.SERVERGROUPS)
+		and groupsintersect(t.ASYNCLISTENERS, a.ID)
+		and groupsintersect(t.schemaid, s.schemaid)
+      ]]></value>
+    </property>
+  </bean>
+  
   <bean id="schemaIndexes" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
       <value>Indexes in a given Schema</value>
@@ -202,23 +239,6 @@
       ]]></value>
     </property>
   </bean>
-   
-  <!-- Query List of About DB Queries-->
-  <bean id="queryListAbout" class="vmware.au.se.sqlfireweb.reports.QueryList">
-    <property name="description">
-      <value>About SQLFire Distributed System</value>
-    </property>   
-    <property name="queryList">
-      <map>
-       <entry key="showMembers">
-        <value>View All Distributed System Members</value>
-       </entry>
-       <entry key="viewSchemas">
-        <value>View All System Schemas</value>
-       </entry>
-      </map>
-    </property>
-  </bean>
 
   <bean id="schemaViews" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
@@ -240,7 +260,27 @@
       ]]></value>
     </property>
   </bean>
-  
+ 
+   <!-- Query List of About DB Queries-->
+  <bean id="queryListAbout" class="vmware.au.se.sqlfireweb.reports.QueryList">
+    <property name="description">
+      <value>About SQLFire Distributed System</value>
+    </property>   
+    <property name="queryList">
+      <map>
+       <entry key="showMembers">
+        <value>View All Distributed System Members</value>
+       </entry>
+       <entry key="viewSchemas">
+        <value>View All System Schemas</value>
+       </entry>
+       <entry key="viewMembersWithAsync">
+        <value>members running AsyncEventListeners/DBSynchronizers with status</value>
+       </entry>
+      </map>
+    </property>
+  </bean>
+   
   <!-- Query List of Table DB Queries-->
   <bean id="queryListTable" class="vmware.au.se.sqlfireweb.reports.QueryList">
     <property name="description">
@@ -269,7 +309,9 @@
        <entry key="schemaTablesWithPersistenceAtrs">
         <value>Tables in a given Schema with their persistence attributes</value>
        </entry>      
-       
+       <entry key="asyncListenersForTable">
+        <value>Async Event Listeners for a Table</value>
+       </entry>       
       </map>
     </property>
   </bean>
