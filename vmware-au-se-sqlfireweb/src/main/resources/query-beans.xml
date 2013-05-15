@@ -26,6 +26,17 @@
     </property>
   </bean>
 
+  <bean id="viewMemoryAnalytics" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
+    <property name="queryDescription">
+      <value>View Memory Usage of All Tables/Indexes</value>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		SELECT * FROM sys.memoryAnalytics;
+      ]]></value>
+    </property>
+  </bean>
+  
   <bean id="viewMembersWithAsync" class="vmware.au.se.sqlfireweb.reports.GenericQuery">
     <property name="queryDescription">
       <value>members running AsyncEventListeners/DBSynchronizers with status</value>
@@ -201,6 +212,23 @@
       ]]></value>
     </property>
   </bean>
+ 
+  <bean id="memoryForTable" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Memory Usage or Table</value>
+    </property>
+    <property name="paramMap">
+     <map>
+      <entry key="1" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+		SELECT * FROM sys.memoryAnalytics
+		where table_name = ?
+      ]]></value>
+    </property>
+  </bean>
   
   <bean id="schemaIndexes" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
@@ -277,6 +305,9 @@
        <entry key="viewMembersWithAsync">
         <value>members running AsyncEventListeners/DBSynchronizers with status</value>
        </entry>
+       <entry key="viewMemoryAnalytics">
+        <value>View Memory Usage of All Tables/Indexes</value>
+       </entry>
       </map>
     </property>
   </bean>
@@ -311,7 +342,10 @@
        </entry>      
        <entry key="asyncListenersForTable">
         <value>Async Event Listeners for a Table</value>
-       </entry>       
+       </entry>   
+       <entry key="memoryForTable">
+        <value>Memory Usage or Table</value>
+       </entry>     
       </map>
     </property>
   </bean>
