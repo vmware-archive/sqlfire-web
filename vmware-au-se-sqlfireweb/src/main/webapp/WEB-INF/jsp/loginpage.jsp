@@ -13,13 +13,13 @@ background-color: #D0DCE0;
 } 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SQLFire*Web - Login Page</title>
+<title><fmt:message key="sqlfireweb.appname" /> - Login Page</title>
 <link rel="stylesheet" type="text/css" href="../css/isqlfire.css" />
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 </head>
 <body>
 
-<h2>SQLFire*Web Login Page</h2>
+<h2><fmt:message key="sqlfireweb.appname" /> Login Page</h2>
 
 <div class="notice">
 Supports SQLFire 1.1.x

@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SQLFire*Web - Current JDBC Connections</title>
+<title><fmt:message key="sqlfireweb.appname" />Web - Current JDBC Connections</title>
 <link rel="stylesheet" type="text/css" href="../css/isqlfire.css" />
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
 </head>
 <body>
-<h2>Current SQLFire*Web JDBC Connections</h2>
+<h2>Current <fmt:message key="sqlfireweb.appname" /> JDBC Connections</h2>
 
 <jsp:include page="toolbar.jsp" flush="true" />
 

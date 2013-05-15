@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,6 +16,10 @@
   // ]]>
 </script>
 <script src="../js/functions.js" type="text/javascript"></script>
+
+<title><fmt:message key="sqlfireweb.appname" /> - Stored ${procType}(s)</title>
+</head>
+<body>
 <c:choose>
   <c:when test="${procType == 'P'}">
     <c:set var="type" value="Procedure" />
@@ -24,11 +29,7 @@
   </c:otherwise>
 </c:choose>
 
-<title>SQLFire*Web - Stored ${procType}(s)</title>
-</head>
-<body>
-
-<h2>SQLFire*Web - Stored ${type}(s)</h2>
+<h2><fmt:message key="sqlfireweb.appname" /> - Stored ${type}(s)</h2>
 
 <jsp:include page="toolbar.jsp" flush="true" />
 

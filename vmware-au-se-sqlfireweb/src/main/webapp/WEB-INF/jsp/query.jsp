@@ -3,6 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,7 +13,7 @@ background-color: #C4D4E2;
 } 
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>SQLFire*Web - Query Window</title>
+<title><fmt:message key="sqlfireweb.appname" /> - Query Window</title>
 <link rel="stylesheet" type="text/css" href="../css/isqlfire.css" />
 <link rel="stylesheet" type="text/css" href="../css/print.css" media="print" />
   <script language="JavaScript" type="text/javascript">
@@ -86,7 +87,7 @@ background-color: #C4D4E2;
 </head>
 <body>
 
-<h2>SQLFire*Web SQL Worksheet</h2>
+<h2><fmt:message key="sqlfireweb.appname" /> SQL Worksheet</h2>
 
 <jsp:include page="toolbar.jsp" flush="true" />
 
