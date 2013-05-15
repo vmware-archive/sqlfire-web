@@ -16,8 +16,8 @@
 	 For example @Controller and @Service. Make sure to set the correct base-package-->
 	<context:component-scan base-package="vmware.au.se.sqlfireweb" />
 	
-	<!-- Configures the annotation-driven Spring MVC Controller programming model.
-		 Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
+   	<!-- Configures the annotation-driven Spring MVC Controller programming model.
+	 Note that, with Spring 3.0, this tag works in Servlet MVC only!  -->
 	<mvc:annotation-driven /> 
 	
 </beans>
