@@ -17,6 +17,9 @@ public interface Constants
 	
 	public static String TABLE_DATA_LOCATION = 
 			"select dsid() Member, count(*) memberRowCount from %s.\"%s\" group by dsid()";
+
+	public static String TABLE_MEMORY_USAGE = 
+			"SELECT * FROM sys.memoryAnalytics where table_name = '%s.%s'";
 	
 	public static String LOAD_TABLE_SCRIPT = 
 			"connect client 'localhost:1527;load-balance=false;read-timeout=0'; \n" +

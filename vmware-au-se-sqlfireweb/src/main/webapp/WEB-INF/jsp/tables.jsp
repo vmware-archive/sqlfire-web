@@ -125,6 +125,29 @@ Found ${records} table(s). &nbsp; &nbsp;
  <br />
 </c:if>
 
+<c:if test="${!empty tableMemoryUsage}">
+ <h3>Memory Usage for ${tablename} table </h3>
+ <table id="table_results" class="data">
+  <thead>
+    <tr>
+     <c:forEach var="columnName" items="${tableMemoryUsage.columnNames}">
+      <th><c:out value="${columnName}"/></th>
+    </c:forEach>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="row" varStatus="loop" items="${tableMemoryUsage.rows}">
+      <tr class="odd">
+        <c:forEach var="columnName" items="${tableMemoryUsage.columnNames}">
+          <td align="center"><c:out value="${row[columnName]}"/></td>
+        </c:forEach>           
+       </tr>
+    </c:forEach>  
+  </tbody>
+ </table>
+ <br />
+</c:if>
+
 <c:if test="${!empty parAttrResult}">
  <h3>Partition Attributes for ${tablename} table </h3>
  <table id="table_results" class="data">
@@ -273,8 +296,8 @@ Found ${records} table(s). &nbsp; &nbsp;
     		<a href="tables?tabName=${entry['tableName']}&tabAction=STRUCTURE&selectedSchema=${chosenSchema}">
              <img class="icon" width="16" height="16" src="../themes/original/img/b_tbloptimize.png" alt="View Table Structure" title="View Table Structure" />
             </a>&nbsp;
-    		<a href="tables?tabName=${entry['tableName']}&tabAction=LOADSCRIPT&selectedSchema=${chosenSchema}">
-             <img class="icon" width="16" height="16" src="../themes/original/img/b_tblimport.png" alt="Generate Table Load Script" title="Generate Table Load Script" />
+    		<a href="tables?tabName=${entry['tableName']}&tabAction=MEMORYUSAGE&selectedSchema=${chosenSchema}">
+             <img class="icon" width="16" height="16" src="../themes/original/img/b_tblimport.png" alt="View Memory Usage of table" title="View Memory Usage of table" />
             </a>&nbsp;  
     		<a href="tables?tabName=${entry['tableName']}&tabAction=DATALOCATIONS&selectedSchema=${chosenSchema}">
              <img class="icon" width="16" height="16" src="../themes/original/img/b_relations.png" alt="View Data Location Members" title="View Data Location Members" />

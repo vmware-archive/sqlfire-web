@@ -31,7 +31,7 @@ public class TableController
     (Model model, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception 
     {
 		int startAtIndex = 0, endAtIndex = 0;
-		javax.servlet.jsp.jstl.sql.Result dataLocationResult, expirationEvictionResult, allTableInfoResult, tableStructure = null;
+		javax.servlet.jsp.jstl.sql.Result dataLocationResult, memoryUsageResult, expirationEvictionResult, allTableInfoResult, tableStructure = null;
 		String schema = null; 
 		
     	if (session.getAttribute("user_key") == null)
@@ -82,6 +82,17 @@ public class TableController
     					    (String)session.getAttribute("user_key"));
     			
     			model.addAttribute("dataLocationResults", dataLocationResult);
+    			model.addAttribute("tablename", (String)request.getParameter("tabName"));
+    		}
+    		else if (tabAction.equalsIgnoreCase("MEMORYUSAGE"))
+    		{
+    			memoryUsageResult = 
+    					tableDAO.getMemoryUsage
+    					   (schema,
+    						(String)request.getParameter("tabName"),
+    					    (String)session.getAttribute("user_key"));
+    			
+    			model.addAttribute("tableMemoryUsage", memoryUsageResult);
     			model.addAttribute("tablename", (String)request.getParameter("tabName"));
     		}
     		else if (tabAction.equalsIgnoreCase("EXPIRATION-EVICTION"))

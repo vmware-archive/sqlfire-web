@@ -23,4 +23,5 @@ public interface TableDAO
 	
 	public javax.servlet.jsp.jstl.sql.Result getTableStructure (String schema, String tableName, String userKey) throws SqlFireException;
 	
+	public javax.servlet.jsp.jstl.sql.Result getMemoryUsage (String schema, String tableName, String userKey) throws SqlFireException;
 }

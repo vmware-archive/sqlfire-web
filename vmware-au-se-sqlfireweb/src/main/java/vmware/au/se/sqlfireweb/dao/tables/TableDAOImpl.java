@@ -231,4 +231,27 @@ public class TableDAOImpl implements TableDAO
 		
 		return res;
 	}
+
+	@Override
+	public javax.servlet.jsp.jstl.sql.Result getMemoryUsage
+		(String schema, String tableName, String userKey) throws SqlFireException 
+	{
+		
+		Connection        conn = null;
+		javax.servlet.jsp.jstl.sql.Result res = null;
+		
+		try 
+		{
+			conn = AdminUtil.getConnection(userKey);
+			res = QueryUtil.runQuery
+					(conn, String.format(Constants.TABLE_MEMORY_USAGE, schema, tableName), -1);
+		} 
+		catch (Exception e) 
+		{
+		      logger.debug("Error retrieving memory usage for table " + tableName);
+		      throw new SqlFireException(e); 
+		}
+		
+		return res;
+	}
 }
