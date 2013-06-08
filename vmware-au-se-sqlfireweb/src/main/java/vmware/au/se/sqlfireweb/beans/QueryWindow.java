@@ -6,18 +6,20 @@ public class QueryWindow
 	private String queryCount;
 	private String elapsedTime;
 	private String explainPlan;
+	private String showMember;
 	 
 	public QueryWindow()
 	{	
 	
 	}
 	
-	public QueryWindow(String query, String queryCount, String elapsedTime) 
+	public QueryWindow(String query, String queryCount, String elapsedTime, String showMember) 
 	{
 		super();
 		this.query = query;
 		this.queryCount = queryCount;
 		this.elapsedTime = elapsedTime;
+		this.showMember = showMember;
 	}
 
 	
@@ -58,11 +60,20 @@ public class QueryWindow
 		this.explainPlan = explainPlan;
 	}
 
+	
+	public String getShowMember() {
+		return showMember;
+	}
+
+	public void setShowMember(String showMember) {
+		this.showMember = showMember;
+	}
+
 	@Override
 	public String toString() {
 		return "QueryWindow [query=" + query + ", queryCount=" + queryCount
 				+ ", elapsedTime=" + elapsedTime + ", explainPlan="
-				+ explainPlan + "]";
+				+ explainPlan + ", showMember=" + showMember + "]";
 	}
   
 	

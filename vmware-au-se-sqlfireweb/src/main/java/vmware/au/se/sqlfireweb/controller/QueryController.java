@@ -137,6 +137,13 @@ public class QueryController
 			    			else
 			    			{
 				    				
+			    				if (queryAttribute.getShowMember().equals("Y"))
+			    				{
+			    					String replace = "select dsid() as \"Member\",";
+			    					
+			    					s = query.toLowerCase().replaceFirst("select", replace);	
+			    				}
+			    				
 				    			long start = System.currentTimeMillis();
 					    		Result res = QueryUtil.runQuery(conn, s, userPrefs.getMaxRecordsinSQLQueryWindow());
 					    		long end = System.currentTimeMillis();
@@ -145,7 +152,7 @@ public class QueryController
 						        DecimalFormat df = new DecimalFormat("#.##");
 					    		
 					    		model.addAttribute("queryResults", res);
-					    		model.addAttribute("query", query);
+					    		model.addAttribute("query", s);
 					    		model.addAttribute("querysql", s);
 					    		if (queryAttribute.getQueryCount().equals("Y"))
 					    		{

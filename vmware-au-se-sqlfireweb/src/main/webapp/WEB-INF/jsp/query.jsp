@@ -170,12 +170,17 @@ SQL File : <input id="sqlfilename" type="file" name="sqlfilename" size="20" maxl
 <fieldset id="queryboxfooter" class="tblFooters">
 <div class="formelement">
 </div>
-Display Query Row Count?
+Show Member?
+<form:select path="showMember" style="margin: 0 2em 0 2em;">
+   <form:option value="N">No</form:option> 
+   <form:option value="Y">Yes</form:option>         
+</form:select>
+Row Count?
 <form:select path="queryCount" style="margin: 0 2em 0 2em;">
    <form:option value="Y">Yes</form:option> 
    <form:option value="N">No</form:option>         
 </form:select>
-Display Elapsed Time?
+Elapsed Time?
 <form:select path="elapsedTime" style="margin: 0 2em 0 2em;">
    <form:option value="N">No</form:option>
    <form:option value="Y">Yes</form:option>          
