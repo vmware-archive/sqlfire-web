@@ -72,13 +72,13 @@
    </li>
    <li>
     <a href="sqlfireweb/procs?procType=P" title="View Stored Procedures">
-      <img class="icon" src="./themes/original/img/b_sqldoc.png" width="16" height="16" alt="View Stored Procedures" />
+      <img class="icon" src="./themes/original/img/b_proc.png" width="16" height="16" alt="View Stored Procedures" />
       Procedures (${sessionScope.schemaMap['Procedure']})
     </a>
    </li>
    <li>
     <a href="sqlfireweb/procs?procType=F" title="View Stored Functions">
-      <img class="icon" src="./themes/original/img/b_sqldoc.png" width="16" height="16" alt="View Stored Functions" />
+      <img class="icon" src="./themes/original/img/b_funct.png" width="16" height="16" alt="View Stored Functions" />
       Functions (${sessionScope.schemaMap['Function']})
     </a>
    </li>
