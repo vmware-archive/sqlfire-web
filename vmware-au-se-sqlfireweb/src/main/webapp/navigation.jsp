@@ -78,7 +78,7 @@
    </li>
    <li>
     <a href="sqlfireweb/procs?procType=F" title="View Stored Functions">
-      <img class="icon" src="./themes/original/img/b_funct.png" width="16" height="16" alt="View Stored Functions" />
+      <img class="icon" src="./themes/original/img/b_func.png" width="16" height="16" alt="View Stored Functions" />
       Functions (${sessionScope.schemaMap['Function']})
     </a>
    </li>

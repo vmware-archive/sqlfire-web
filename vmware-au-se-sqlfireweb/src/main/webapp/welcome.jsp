@@ -23,7 +23,7 @@
   <img class="icon" src="./themes/original/img/b_props.png" width="16" height="16" alt="SQLFire Preferences" />
   Preferences
 </a>&nbsp; | &nbsp;
-<a href="http://pubs.vmware.com/vfabric5/index.jsp?topic=/com.vmware.vfabric.sqlfire.1.0/getting_started/book_intro.html&lp=default" title="SQLFire Documentation" target="_top">
+<a href="http://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.sqlfire.1.1/about_users_guide.html" title="SQLFire Documentation" target="_top">
   <img class="icon" src="./themes/original/img/b_docs.png" width="16" height="16" alt="SQLFire doco" />
   SQLFire Documentation
 </a>&nbsp; | &nbsp;
