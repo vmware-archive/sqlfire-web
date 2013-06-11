@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h2><fmt:message key="sqlfireweb.appname" /> - Welcome Page</h2>
+<h2>SQLFire*Web - Welcome Page</h2>
 
 <a href="sqlfireweb/home" target="_top" title="Home">
   <img class="icon" src="./themes/original/img/b_home.png" width="16" height="16" alt="Home" />
@@ -50,9 +50,9 @@ SQLFire*Web is web based interface allowing multiple users to access SQLFire whi
 	<ul>
 	  <li>Browse schema objects + SQLFire schema objects</li>
 	  <li>View the partitioning strategies of tables</li>
-	  <li>View data distribution across members</li>
+	  <li>View data distribution across members and SQL queries</li>
 	  <li>Create Table/Index Wizard</li>
-	  <li>Generate load scripts for tables</li>
+	  <li>View memory Usage for Tables/Indexes</li>
 	  <li>Manipulate multiple schema objects at once</li>
 	  <li>Run any SQL query, DML, DDL</li>
 	  <li>Load/Execute SQL Files</li>
