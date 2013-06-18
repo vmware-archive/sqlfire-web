@@ -85,7 +85,7 @@ public class ProcController
 	                (schema,
 	                 (String)request.getParameter("procName"),
 	                 procAction,
-	                 (String)request.getParameter("procType") == "P" ? "procedure" : "function",
+	                 request.getParameter("procType").equals("P") ? "procedure" : "function",
 	                 (String)session.getAttribute("user_key"));
 	            
 	            model.addAttribute("result", result);
@@ -211,7 +211,7 @@ public class ProcController
 	                    (schema,
 	                     procName,
 	                     commandStr,
-	                     (String)request.getParameter("procType") == "P" ? "procedure" : "function",
+	                     request.getParameter("procType").equals("P") ? "procedure" : "function",
 	                     (String)session.getAttribute("user_key"));
 	                al.add(result);
 	        	}
