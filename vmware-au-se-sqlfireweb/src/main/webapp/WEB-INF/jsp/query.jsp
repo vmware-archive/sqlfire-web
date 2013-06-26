@@ -230,6 +230,38 @@ Run Explain?
 <br />
 </c:if>
   
+<c:if test="${!empty procresults}">
+ <div class="info">
+    Stored Procedure ${callstatement} has ${dynamicresults} dynamic result sets returned.
+ </div>
+ <br />
+ <c:forEach var="resultset" items="${procresults}">
+     <div class="success">
+       Stored Procedure ResultSet returned successfully
+    </div> 
+    <br />
+    <table id="table_results" class="data">
+    <thead>
+      <tr>
+       <c:forEach var="columnName" items="${resultset.columnNames}">
+        <th><c:out value="${columnName}"/></th>
+      </c:forEach>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach var="row" varStatus="loop" items="${resultset.rows}">
+        <tr class="${((loop.index % 2) == 0) ? 'even' : 'odd'}">
+          <c:forEach var="columnName" items="${resultset.columnNames}">
+            <td><c:out value="${row[columnName]}"/></td>
+          </c:forEach>           
+         </tr>
+      </c:forEach>  
+    </tbody>
+   </table>
+   <br />
+ </c:forEach>
+</c:if>
+
 <c:if test="${!empty queryResults}">
   <c:choose>
     <c:when test="${!empty queryResultCount}">

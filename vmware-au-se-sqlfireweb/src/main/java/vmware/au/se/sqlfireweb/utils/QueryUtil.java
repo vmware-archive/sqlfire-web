@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.sql.PreparedStatement;
 import java.text.DecimalFormat;
@@ -96,6 +98,62 @@ public class QueryUtil
 	    }
 	    
 	    return res;
+	  }
+
+	  static public List<Result> runStoredprocWithResultSet 
+	    (Connection conn, String query, int maxrows, int resultsets) throws SQLException
+	  {
+		PreparedStatement pstmt = null;
+	    ResultSet rset  = null;
+	    Result    res   = null;
+	    List<Result> results = new ArrayList<Result>();
+	    
+	    try
+	    {
+	      
+    	  for (int i = 1; i <= resultsets; i++)
+    	  {
+    		  if (i == 1)
+    		  {
+    			  pstmt = conn.prepareCall(query);
+    			  pstmt.execute();
+    		  }
+    		  else
+    		  {
+    			  pstmt.getMoreResults();
+    		  }
+    		  
+    	      rset = pstmt.getResultSet(); 
+    	      res = null;
+    	      
+    	      /* 
+    	       * Convert the ResultSet to a 
+    	       * Result object that can be used with JSTL tags 
+    	       */
+    	      if (maxrows == -1)
+    	      {
+    	        res = ResultSupport.toResult(rset);
+    	      }
+    	      else
+    	      {
+    	        res = ResultSupport.toResult(rset, maxrows);
+    	      }
+    	      
+    	      results.add(res);
+    	      
+    	      rset.close();
+    	      rset = null;
+    	  }
+	      
+
+	    }
+	    finally
+	    {
+          JDBCUtil.close(pstmt);
+          JDBCUtil.close(rset);
+	    }
+	    
+	    return results;
 	  }
 	  
 	  static public int runQueryCount (Connection conn, String query) throws SQLException
@@ -211,6 +269,56 @@ public class QueryUtil
 	    return res;
 	  }
 	  
+	  static public int checkForDynamicResultSetProc (Connection conn, String schema, String procName) throws SQLException
+	  {
+		   PreparedStatement stmt = null;
+		   ResultSet rset = null;
+		   String sql = "select cast (a.aliasinfo as varchar(1000)) " +
+				        "from sys.sysaliases a, sys.sysschemas s " +
+				        "where aliastype = 'P' " + 
+				        "and a.schemaid = s.schemaid " +
+				        "and s.schemaname = ? " +
+				        "and a.alias = ?";
+		   
+		   try
+		   {
+			   stmt = conn.prepareStatement(sql);
+			   stmt.setString(1, schema);
+			   stmt.setString(2, procName);
+			   rset = stmt.executeQuery();
+			   
+			   rset.next();
+			   
+			   if (rset != null)
+			   {
+				   String res = rset.getString(1);
+				   
+				   int index = res.indexOf("DYNAMIC RESULT SETS ");
+				   
+				   if (index == -1)
+				   {
+					   // does not exist
+					   return 0;
+				   }
+				   
+				   return Integer.parseInt(res.substring(index + 20));
+			   }
+	
+		   }
+		   catch (SQLException se)
+		   {
+			   return 0;
+		   }
+		   finally
+		   {
+			   JDBCUtil.close(stmt);
+			   JDBCUtil.close(rset);
+		   }
+		 
+		   return 0;
+	   
+	  }
+		
 	  static public Map<String, String> populateSchemaMap(Connection conn, Map<String, String> schemaMap, String schema) throws SQLException
 	  {
 		  String sql = 

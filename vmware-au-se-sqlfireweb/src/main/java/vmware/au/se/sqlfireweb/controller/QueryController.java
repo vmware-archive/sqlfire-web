@@ -181,17 +181,63 @@ public class QueryController
 			    			if (determineQueryType(s).equals("COMMIT"))
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, true, queryAttribute.getElapsedTime());
+			    				model.addAttribute("result", result);
 			    			}
 			    			else if (determineQueryType(s).equals("ROLLBACK"))
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, false, queryAttribute.getElapsedTime());
+			    				model.addAttribute("result", result);
+			    			}
+			    			else if (determineQueryType(s).equals("CALL"))
+			    			{
+			    				
+			    				String procName = getProcName(s);
+			    				String schema = null;
+			    				
+			    				int x = procName.indexOf(".");
+			    				if (x != -1)
+			    				{
+			    				  	String newProcName = procName.substring((procName.indexOf(".") + 1));
+			    				  	schema = procName.substring(0, (procName.indexOf(".")));
+			    				  	procName = newProcName;
+			    				}
+			    				else
+			    				{
+			    					schema = (String) session.getAttribute("schema");
+			    				}
+			    				
+			    				logger.debug("schema for stored procedure = " + schema);
+			    				logger.debug("call statement called for proc with name " + procName);
+			    				
+			    				// need to get schema name to check proc details
+			    				int numberOfDynamicResultSets = 
+			    						QueryUtil.checkForDynamicResultSetProc (conn, schema, procName);
+			    				
+			    				if (numberOfDynamicResultSets > 0)
+			    				{
+			    					logger.debug("call statement with " + numberOfDynamicResultSets + " dynamic resultset(s)");
+			    					List<Result> procResults = 
+			    							QueryUtil.runStoredprocWithResultSet(conn, 
+			    																 s, 
+			    																 userPrefs.getMaxRecordsinSQLQueryWindow(), 
+			    																 numberOfDynamicResultSets);
+			    					model.addAttribute("procresults", procResults);
+			    					model.addAttribute("callstatement", procName);
+			    					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
+			    				}
+			    				else
+			    				{
+				    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
+				    				model.addAttribute("result", result);			    					
+			    				}
 			    			}
 			    			else
 			    			{
 			    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
+			    				model.addAttribute("result", result);
 			    			}
 			    			
-				    		model.addAttribute("result", result);
+				    		
 			    		}
 			    	}
 	        	}
@@ -468,6 +514,19 @@ public class QueryController
 			return s;
 		}
 			
-	}   
+	}  
+	
+	private String getProcName (String sql)
+	{
+		String query = sql.toLowerCase().trim();
+		String proc = null;
+		
+		int startIndex = sql.indexOf(" ");
+		int endIndex = sql.indexOf("(");
+		
+		proc = sql.substring(startIndex, (endIndex));
+		
+		return proc.trim(); 
+	}
 }
     
