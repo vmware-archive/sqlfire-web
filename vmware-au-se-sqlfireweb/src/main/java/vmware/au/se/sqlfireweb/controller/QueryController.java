@@ -192,43 +192,63 @@ public class QueryController
 			    			{
 			    				
 			    				String procName = getProcName(s);
-			    				String schema = null;
 			    				
-			    				int x = procName.indexOf(".");
-			    				if (x != -1)
+			    				if (procName != null)
 			    				{
-			    				  	String newProcName = procName.substring((procName.indexOf(".") + 1));
-			    				  	schema = procName.substring(0, (procName.indexOf(".")));
-			    				  	procName = newProcName;
-			    				}
-			    				else
-			    				{
-			    					schema = (String) session.getAttribute("schema");
-			    				}
-			    				
-			    				logger.debug("schema for stored procedure = " + schema);
-			    				logger.debug("call statement called for proc with name " + procName);
-			    				
-			    				// need to get schema name to check proc details
-			    				int numberOfDynamicResultSets = 
-			    						QueryUtil.checkForDynamicResultSetProc (conn, schema, procName);
-			    				
-			    				if (numberOfDynamicResultSets > 0)
-			    				{
-			    					logger.debug("call statement with " + numberOfDynamicResultSets + " dynamic resultset(s)");
-			    					List<Result> procResults = 
-			    							QueryUtil.runStoredprocWithResultSet(conn, 
-			    																 s, 
-			    																 userPrefs.getMaxRecordsinSQLQueryWindow(), 
-			    																 numberOfDynamicResultSets);
-			    					model.addAttribute("procresults", procResults);
-			    					model.addAttribute("callstatement", procName);
-			    					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
+				    				String schema = null;
+				    				
+				    				int x = procName.indexOf(".");
+				    				if (x != -1)
+				    				{
+				    				  	String newProcName = procName.substring((procName.indexOf(".") + 1));
+				    				  	schema = procName.substring(0, (procName.indexOf(".")));
+				    				  	procName = newProcName;
+				    				}
+				    				else
+				    				{
+				    					schema = (String) session.getAttribute("schema");
+				    				}
+				    				
+				    				logger.debug("schema for stored procedure = " + schema);
+				    				logger.debug("call statement called for proc with name " + procName);
+				    				
+				    				// need to get schema name to check proc details
+				    				int numberOfDynamicResultSets = 
+				    						QueryUtil.checkForDynamicResultSetProc (conn, schema, procName);
+				    				
+				    				if (numberOfDynamicResultSets > 0)
+				    				{
+				    					logger.debug("call statement with " + numberOfDynamicResultSets + " dynamic resultset(s)");
+				    					try
+				    					{
+					    					List<Result> procResults = 
+					    							QueryUtil.runStoredprocWithResultSet(conn, 
+					    																 s, 
+					    																 userPrefs.getMaxRecordsinSQLQueryWindow(), 
+					    																 numberOfDynamicResultSets);
+					    					model.addAttribute("procresults", procResults);
+					    					model.addAttribute("callstatement", procName);
+					    					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
+				    					}
+				    					catch (Exception ex)
+				    					{
+							    			result.setCommand(s);
+							    			result.setMessage(ex.getMessage() == null ? "Unable to run query" : ex.getMessage());
+							    			result.setRows(-1);
+							    			model.addAttribute("result", result);
+							    			model.addAttribute("query", s);				    						
+				    					}
+				    				}
+				    				else
+				    				{
+					    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
+					    				model.addAttribute("result", result);			    					
+				    				}
 			    				}
 			    				else
 			    				{
 				    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
-				    				model.addAttribute("result", result);			    					
+				    				model.addAttribute("result", result);	
 			    				}
 			    			}
 			    			else
@@ -521,12 +541,20 @@ public class QueryController
 		String query = sql.toLowerCase().trim();
 		String proc = null;
 		
-		int startIndex = sql.indexOf(" ");
-		int endIndex = sql.indexOf("(");
+		try
+		{
+			int startIndex = query.indexOf(" ");
+			int endIndex = query.indexOf("(");
+			
+			proc = query.substring(startIndex, (endIndex));
+			
+			return proc.trim().toUpperCase(); 
+		}
+		catch (Exception ex)
+		{
+		  return null;	
+		}
 		
-		proc = sql.substring(startIndex, (endIndex));
-		
-		return proc.trim(); 
 	}
 }
     
