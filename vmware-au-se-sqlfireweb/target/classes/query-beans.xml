@@ -45,7 +45,7 @@
       <value><![CDATA[
 		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
 		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
-		where groupsintersect(a.SERVER_GROUP, m.SERVERGROUPS)
+		where groupsintersect(a.SERVER_GROUPS, m.SERVERGROUPS)
 		and groupsintersect(t.ASYNCLISTENERS, a.ID)
 		and groupsintersect(t.schemaid, s.schemaid)
         order by t.tablename, m.id
@@ -206,7 +206,7 @@
 		select m.ID DSID, m.status, s.schemaname, t.tablename, t.datapolicy, t.GATEWAYENABLED, t.servergroups 
 		from SYS.SYSTABLES t, SYS.MEMBERS m, SYS.ASYNCEVENTLISTENERS a, sys.sysschemas s
 		where t.tablename = ?
-		and groupsintersect(a.SERVER_GROUP, m.SERVERGROUPS)
+		and groupsintersect(a.SERVER_GROUPS, m.SERVERGROUPS)
 		and groupsintersect(t.ASYNCLISTENERS, a.ID)
 		and groupsintersect(t.schemaid, s.schemaid)
       ]]></value>

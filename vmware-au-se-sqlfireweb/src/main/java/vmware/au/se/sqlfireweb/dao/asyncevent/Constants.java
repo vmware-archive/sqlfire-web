@@ -3,7 +3,7 @@ package vmware.au.se.sqlfireweb.dao.asyncevent;
 public interface Constants 
 {
 	public static final String USER_ASYNCEVENTS = 
-			"select id, listener_class, server_group, is_started " +
+			"select id, listener_class, server_groups, is_started " +
 			"from   sys.ASYNCEVENTLISTENERS " +
 			"where  id like ?";
 	
