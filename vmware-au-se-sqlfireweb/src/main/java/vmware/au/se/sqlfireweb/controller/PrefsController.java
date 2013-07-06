@@ -28,7 +28,7 @@ public class PrefsController
     	if (session.getAttribute("user_key") == null)
     	{
     		logger.debug("user_key is null new Login required");
-    		response.sendRedirect(request.getContextPath() + "/isqlfire/login");	
+    		response.sendRedirect(request.getContextPath() + "/sqlfireweb/login");	
     		return null;
     	}
     	
@@ -47,7 +47,7 @@ public class PrefsController
     	if (session.getAttribute("user_key") == null)
     	{
     		logger.debug("user_key is null new Login required");
-    		response.sendRedirect(request.getContextPath() + "/isqlfire/login");	
+    		response.sendRedirect(request.getContextPath() + "/sqlfireweb/login");	
     		return null;
     	}
     	
