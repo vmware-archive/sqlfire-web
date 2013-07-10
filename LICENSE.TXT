@@ -1,52 +1,44 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
-{\fonttbl\f0\fnil\fcharset0 Consolas;}
-{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
-\margl1440\margr1440\vieww12560\viewh14640\viewkind0
-\deftab720
-\pard\pardeftab720
+Copyright (c) 2013 GoPivotal, Inc. All Rights Reserved.
 
-\f0\fs24 \cf2 Copyright (c) 2013 GoPivotal, Inc. All Rights Reserved.\
-\
-This program is free software; you can redistribute it and/or modify it under\
-the terms of the GNU General Public License version 2, as published by the\
-Free Software Foundation.\
-\
-This program is distributed in the hope that it will be useful, but WITHOUT\
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS\
-FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more\
-details.\
-\
-You should have received a copy of the GNU General Public License\
-along with this program.  If not, see <http://www.gnu.org/licenses/>.\
-\
-The full text of the GPL is provided in the COPYING file.\
-\
-SQLFire*Web is a translation of phpmyadmin, which is licensed as noted below:\
-\
-Copyright (C) 1998-2000\
-\'a0\'a0\'a0\'a0Tobias Ratschiller <tobias_at_ratschiller.com>\
-\
-Copyright (C) 2001-2013\
-\'a0\'a0\'a0\'a0Marc Delisle <marc_at_infomarc.info>\
-\'a0\'a0\'a0\'a0Olivier M\'fcller <om_at_omnis.ch>\
-\'a0\'a0\'a0\'a0Robin Johnson <robbat2_at_users.sourceforge.net>\
-\'a0\'a0\'a0\'a0Alexander M. Turek <me_at_derrabus.de>\
-\'a0\'a0\'a0\'a0Michal \uc0\u268 iha\u345  <michal_at_cihar.com>\
-\'a0\'a0\'a0\'a0Garvin Hicking <me_at_supergarv.de>\
-\'a0\'a0\'a0\'a0Michael Keck <mkkeck_at_users.sourceforge.net>\
-\'a0\'a0\'a0\'a0Sebastian Mendel <cybot_tm_at_users.sourceforge.net>\
-\'a0\'a0\'a0\'a0[check documentation for more details]\
-\
-\
-This program is free software; you can redistribute it and/or modify it under\
-the terms of the GNU General Public License version 2, as published by the\
-Free Software Foundation.\
-\
-This program is distributed in the hope that it will be useful, but WITHOUT\
-ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS\
-FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more\
-details.\
-\
-You should have received a copy of the GNU General Public License\
-along with this program.  If not, see <http://www.gnu.org/licenses/>.\
-}
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License version 2, as published by the
+Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+The full text of the GPL is provided in the COPYING file.
+
+SQLFire*Web is a translation of phpmyadmin, which is licensed as noted below:
+
+Copyright (C) 1998-2000
+    Tobias Ratschiller <tobias_at_ratschiller.com>
+
+Copyright (C) 2001-2013
+    Marc Delisle <marc_at_infomarc.info>
+    Olivier Müller <om_at_omnis.ch>
+    Robin Johnson <robbat2_at_users.sourceforge.net>
+    Alexander M. Turek <me_at_derrabus.de>
+    Michal Čihař <michal_at_cihar.com>
+    Garvin Hicking <me_at_supergarv.de>
+    Michael Keck <mkkeck_at_users.sourceforge.net>
+    Sebastian Mendel <cybot_tm_at_users.sourceforge.net>
+    [check documentation for more details]
+
+
+This program is free software; you can redistribute it and/or modify it under
+the terms of the GNU General Public License version 2, as published by the
+Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
+details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
