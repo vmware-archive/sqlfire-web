@@ -29,7 +29,7 @@ public class UserPref
 	{
 	   recordsToDisplay = 20;
 	   maxRecordsinSQLQueryWindow = 5000;
-	   autoCommit = "Y";
+	   autoCommit = "N";
 	}
 	
 	public UserPref(int recordsToDisplay, int maxRecordsinSQLQueryWindow) 
