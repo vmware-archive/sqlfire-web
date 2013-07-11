@@ -40,7 +40,6 @@ public class AdminUtil
 	{
 	   DriverManager.registerDriver(new ClientDriver());
 	   Connection conn = DriverManager.getConnection(url,username,password);
-	   conn.setAutoCommit(true);
 	   return conn;
 	}
 
@@ -48,7 +47,6 @@ public class AdminUtil
 	{
 	   DriverManager.registerDriver(new ClientDriver());
 	   Connection conn = DriverManager.getConnection(url);
-	   conn.setAutoCommit(true);
 	   return conn;
 	}
 	
