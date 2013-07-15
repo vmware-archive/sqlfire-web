@@ -26,12 +26,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.jsp.jstl.sql.Result;
+
 import org.apache.log4j.Logger;
 
 import vmware.au.se.sqlfireweb.dao.members.Constants;
 import vmware.au.se.sqlfireweb.main.SqlFireException;
 import vmware.au.se.sqlfireweb.utils.AdminUtil;
 import vmware.au.se.sqlfireweb.utils.JDBCUtil;
+import vmware.au.se.sqlfireweb.utils.QueryUtil;
 
 public class MemberDAOImpl implements MemberDAO 
 {
@@ -94,6 +97,27 @@ public class MemberDAOImpl implements MemberDAO
 		
 		return members;
 		
+	}
+
+	@Override
+	public Result getMemberInfo(String memberId, String userKey) throws SqlFireException 
+	{
+		Connection        conn = null;
+		javax.servlet.jsp.jstl.sql.Result res = null;
+		
+		try 
+		{
+			conn = AdminUtil.getConnection(userKey);
+			res = QueryUtil.runQuery
+					(conn, String.format(Constants.VIEW_ALL_MEMBER_INFO, memberId), -1);
+		} 
+		catch (Exception e) 
+		{
+		      logger.debug("Error retrieving all member info for meber with id : " + memberId);
+		      throw new SqlFireException(e); 
+		}
+		
+		return res;
 	}
 
 }

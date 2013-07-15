@@ -48,6 +48,30 @@ Found ${records} member(s).
 </div>
 <br />
 
+<c:if test="${!empty allMemberInfoResult}">
+ <h3>${memberid} Member information</h3>
+ <table id="table_results" class="data">
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="row" varStatus="loop" items="${allMemberInfoResult.rows}">
+        <c:forEach var="columnName" items="${allMemberInfoResult.columnNames}">
+         <tr class="${((loop.index % 2) == 0) ? 'even' : 'odd'}">
+          <td align="right">${columnName}</td>
+          <td align="left"><c:out value="${row[columnName]}"/></td>
+         </tr>
+        </c:forEach>           
+       </tr>
+    </c:forEach>  
+  </tbody>
+ </table>
+ <br />
+</c:if>
+
 <table id="table_results" class="data">
  <thead>
    <tr>
@@ -60,6 +84,7 @@ Found ${records} member(s).
     <th>Port</th>
     <th>Locator</th>
     <th>Server Groups</th>
+    <th>Action</th>
    </tr>
  </thead>
  <tbody>
@@ -96,6 +121,11 @@ Found ${records} member(s).
 	  	   <td align="center">${entry.port}</td>
 	  	   <td align="center">${entry.locator}</td>
 	  	   <td align="center">${entry.serverGroups}</td>
+	  	   <td align="center">
+    		<a href="members?memberId=${entry['id']}&memberAction=ALLMEMBEREVENTINFO">
+             <img class="icon" width="16" height="16" src="../themes/original/img/b_tblexport.png" alt="View Member Info" title="View Member Info" />
+            </a>&nbsp;   	  	   
+	  	   </td>
   	   </tr>
 	</c:forEach>
  </tbody>

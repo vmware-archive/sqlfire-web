@@ -140,7 +140,7 @@ public class AsynceventDAOImpl implements AsynceventDAO
 		} 
 		catch (Exception e) 
 		{
-		      logger.debug("Error retrieving all async event info info for " + asyncEvent);
+		      logger.debug("Error retrieving all async event info for : " + asyncEvent);
 		      throw new SqlFireException(e); 
 		}
 		

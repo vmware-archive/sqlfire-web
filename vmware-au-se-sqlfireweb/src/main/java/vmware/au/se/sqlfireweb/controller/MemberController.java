@@ -45,6 +45,8 @@ public class MemberController
     public String showDiskstores
     (Model model, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception 
     {
+		javax.servlet.jsp.jstl.sql.Result allMemberInfoResult = null;
+		
     	if (session.getAttribute("user_key") == null)
     	{
     		logger.debug("user_key is null new Login required");
@@ -55,6 +57,22 @@ public class MemberController
     	logger.debug("Received request to show members");
     	
     	MemberDAO mbrDAO = ISQLFireDAOFactory.getMemberDAO();
+    	
+    	String memberAction = request.getParameter("memberAction");
+    	
+    	if (memberAction != null)
+    	{
+    		logger.debug("memberAction = " + memberAction);
+    		
+    		if (memberAction.equals("ALLMEMBEREVENTINFO"))
+    		{
+    			allMemberInfoResult = 
+    					mbrDAO.getMemberInfo((String)request.getParameter("memberId"), 
+    										 (String)session.getAttribute("user_key"));
+    			model.addAttribute("allMemberInfoResult", allMemberInfoResult);
+    			model.addAttribute("memberid", (String)request.getParameter("memberId"));
+    		}
+    	}
     	
     	List<Member> members = mbrDAO.retrieveMembers
     			((String)session.getAttribute("user_key"));

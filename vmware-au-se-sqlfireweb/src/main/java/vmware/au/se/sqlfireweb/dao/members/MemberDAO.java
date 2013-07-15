@@ -26,4 +26,6 @@ import vmware.au.se.sqlfireweb.main.SqlFireException;
 public interface MemberDAO 
 {
 	public List<Member> retrieveMembers (String userKey) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getMemberInfo (String memberId, String userKey) throws SqlFireException;
 }
