@@ -49,8 +49,14 @@ Supports SQLFire 1.1.x
   <div class="error">
 	Unable to login into SQLFire cluster due to the following error <p /> ${error}
   </div>
-  <p />
 </c:if>
+
+<font color="darkblue">
+	<p>
+	 Please ensure you provide a login schema in order to set the correct schema. Leaving this
+	 out will default to the "APP" schema.
+	</p>
+</font>
 
 <form:form method="post" action="login" modelAttribute="loginAttribute" target="_top">
 <fieldset>
