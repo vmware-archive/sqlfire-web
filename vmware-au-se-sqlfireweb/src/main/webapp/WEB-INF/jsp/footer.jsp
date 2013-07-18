@@ -23,6 +23,9 @@
   <br />
     Version 1.1 - &copy; 2013. All Rights Reserved. 
   <br />
+  <a href="../COPYING.txt">COPYING.txt</a> &nbsp | &nbsp
+  <a href="../LICENSE.txt">LICENSE.txt</a>
+  <br />
   <a href="mailto:papicella@gopivotal.com">Pas Apicella</a>
   </font>
 </div>
