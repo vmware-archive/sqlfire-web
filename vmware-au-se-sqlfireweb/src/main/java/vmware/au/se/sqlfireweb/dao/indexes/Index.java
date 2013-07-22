@@ -27,10 +27,11 @@ public class Index
 	private String indexType;
 	private String columnsAndOrder;
 	private String schemaName;
+	private String caseSensitive;
 	
 	
 	public Index(String index, String unique, String table, String indexType,
-			String columnsAndOrder, String schemaName) {
+			String columnsAndOrder, String schemaName, String caseSensitive) {
 		super();
 		this.index = index;
 		this.unique = unique;
@@ -38,6 +39,7 @@ public class Index
 		this.indexType = indexType;
 		this.columnsAndOrder = columnsAndOrder;
 		this.schemaName = schemaName;
+		this.caseSensitive = caseSensitive;
 	}
 	
 	public String getIndex() {
@@ -88,11 +90,21 @@ public class Index
 		this.schemaName = schemaName;
 	}
 
+	
+	public String getCaseSensitive() {
+		return caseSensitive;
+	}
+
+	public void setCaseSensitive(String caseSensitive) {
+		this.caseSensitive = caseSensitive;
+	}
+
 	@Override
 	public String toString() {
 		return "Index [index=" + index + ", unique=" + unique + ", table="
 				+ table + ", indexType=" + indexType + ", columnsAndOrder="
-				+ columnsAndOrder + ", schemaName=" + schemaName + "]";
+				+ columnsAndOrder + ", schemaName=" + schemaName
+				+ ", caseSensitive=" + caseSensitive + "]";
 	}
 	
 	

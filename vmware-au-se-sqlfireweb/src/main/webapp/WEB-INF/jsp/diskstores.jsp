@@ -91,6 +91,30 @@ Found ${records} diskstore(s).
 <br />
 </c:if>
 
+<c:if test="${!empty allDiskStoreInfoResult}">
+ <h3>${dsName} DiskStore information</h3>
+ <table id="table_results" class="data">
+  <thead>
+    <tr>
+      <th>Column Name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <c:forEach var="row" varStatus="loop" items="${allDiskStoreInfoResult.rows}">
+        <c:forEach var="columnName" items="${allDiskStoreInfoResult.columnNames}">
+         <tr class="${((loop.index % 2) == 0) ? 'even' : 'odd'}">
+          <td align="right">${columnName}</td>
+          <td align="left"><c:out value="${row[columnName]}"/></td>
+         </tr>
+        </c:forEach>           
+       </tr>
+    </c:forEach>  
+  </tbody>
+ </table>
+ <br />
+</c:if>
+
 <form action="diskstores" method="POST">
    <b>Filter Disk Store Name: </b>
    <input type="TEXT" name="search" value="${search}" />
@@ -145,6 +169,9 @@ Found ${records} diskstore(s).
 		             <img class="icon" width="16" height="16" src="../themes/original/img/b_drop.png" alt="Drop Disk Store" title="Drop Disk Store" />
 		            </a>   
 		            &nbsp;
+		            <a href="diskstores?dsName=${entry['name']}&dsAction=ALLDISKSTOREINFO">
+             		 <img class="icon" width="16" height="16" src="../themes/original/img/b_tblexport.png" alt="View Disk Store Info" title="View Disk Store Info" />
+            	    </a>&nbsp; 
 	    		</c:otherwise>	  	    
 	  	    </c:choose>          
 	  	   </td>

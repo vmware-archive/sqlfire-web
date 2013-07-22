@@ -58,7 +58,7 @@ public class DiskStoreController
     	logger.debug("Received request to show diskstores");
 
 		int startAtIndex = 0, endAtIndex = 0;
-		javax.servlet.jsp.jstl.sql.Result dataLocationResult, expirationEvictionResult, allTableInfoResult, tableStructure = null;
+		javax.servlet.jsp.jstl.sql.Result allDiskStoreInfoResult = null;
 		String schema = null; 
     	
     	DiskStoreDAO dsDAO = ISQLFireDAOFactory.getDiskStoreDAO();
@@ -70,15 +70,25 @@ public class DiskStoreController
     	{
     		logger.debug("dsAction = " + dsAction);
     		
-    	
-            result = null;
-            result =
-              dsDAO.simplediskStoreCommand
-                ((String)request.getParameter("dsName"), 
-                 dsAction, 
-                 (String)session.getAttribute("user_key"));
-              
-            model.addAttribute("result", result);
+    		if (dsAction.equals("ALLDISKSTOREINFO"))
+    		{
+    			allDiskStoreInfoResult = dsDAO.getDiskstoreInfo
+    					((String)request.getParameter("dsName"), 
+					     (String)session.getAttribute("user_key"));
+    			model.addAttribute("allDiskStoreInfoResult", allDiskStoreInfoResult);
+    			model.addAttribute("dsName", (String)request.getParameter("dsName"));
+    		}
+    		else
+    		{
+	            result = null;
+	            result =
+	              dsDAO.simplediskStoreCommand
+	                ((String)request.getParameter("dsName"), 
+	                 dsAction, 
+	                 (String)session.getAttribute("user_key"));
+	              
+	            model.addAttribute("result", result);
+    		}
             
     	}
     	

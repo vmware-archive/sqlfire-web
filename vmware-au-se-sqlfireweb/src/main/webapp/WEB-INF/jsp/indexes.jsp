@@ -140,6 +140,7 @@ Found ${records} index(es).
     <th>Table</th>
     <th>Index Type</th>
     <th>Columns and Order</th>
+    <th>Case Sensitive?</th>
     <th>Action</th>
    </tr>
  </thead>
@@ -158,6 +159,16 @@ Found ${records} index(es).
 	  	   <td align="center">${entry.table}</td>
 	  	   <td align="center">${entry.indexType}</td>
 	  	   <td align="center">${entry.columnsAndOrder}</td>
+	  	   <td align="center">
+	  	     <c:choose>
+	  	       <c:when test="${entry.caseSensitive == '1'}">
+	  	         <font color="green">YES</font>
+	  	       </c:when>
+	  	       <c:otherwise>
+	  	         <font color="red">NO</font>
+	  	       </c:otherwise>
+	  	     </c:choose>	  	   
+	  	   </td>
 	  	   <td align="center">
     		<a href="indexes?indexName=${entry['index']}&idxAction=DROP&selectedSchema=${chosenSchema}" onclick="return confirmLink(this, 'DROP INDEX ${entry['index']}?')">
              <img class="icon" width="16" height="16" src="../themes/original/img/b_drop.png" alt="Drop Index" title="Drop Index" />

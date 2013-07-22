@@ -23,7 +23,7 @@ public interface Constants
 {
 
 	public static final String USER_INDEXES = 
-			"select distinct indexname, \"UNIQUE\", tablename, indextype, COLUMNS_AND_ORDER, schemaname " +
+			"select distinct indexname, \"UNIQUE\", tablename, indextype, COLUMNS_AND_ORDER, schemaname, CASESENSITIVE " +
 			"from   sys.indexes " +
 			"where  schemaname = ? " +
 			"and indexname like ?";

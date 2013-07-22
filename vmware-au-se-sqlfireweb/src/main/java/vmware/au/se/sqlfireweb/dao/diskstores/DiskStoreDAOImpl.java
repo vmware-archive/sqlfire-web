@@ -35,6 +35,7 @@ import vmware.au.se.sqlfireweb.main.Result;
 import vmware.au.se.sqlfireweb.main.SqlFireException;
 import vmware.au.se.sqlfireweb.utils.AdminUtil;
 import vmware.au.se.sqlfireweb.utils.JDBCUtil;
+import vmware.au.se.sqlfireweb.utils.QueryUtil;
 
 public class DiskStoreDAOImpl implements DiskStoreDAO 
 {
@@ -150,6 +151,28 @@ public class DiskStoreDAOImpl implements DiskStoreDAO
 	    }
 	    
 	    return dsks;
+	}
+
+	@Override
+	public javax.servlet.jsp.jstl.sql.Result getDiskstoreInfo(
+			String diskStoreName, String userKey) throws SqlFireException 
+	{
+		Connection        conn = null;
+		javax.servlet.jsp.jstl.sql.Result res = null;
+		
+		try 
+		{
+			conn = AdminUtil.getConnection(userKey);
+			res = QueryUtil.runQuery
+					(conn, String.format(Constants.VIEW_ALL_DISKSTORE_INFO, diskStoreName), -1);
+		} 
+		catch (Exception e) 
+		{
+		      logger.debug("Error retrieving all disk store info for disk store with name : " + diskStoreName);
+		      throw new SqlFireException(e); 
+		}
+		
+		return res;
 	}
 
 }

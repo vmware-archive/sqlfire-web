@@ -35,4 +35,9 @@ public interface Constants {
 	
 	public static final String DROP_DISKSTORE =
 			"drop diskstore %s";
+	
+	public static final String VIEW_ALL_DISKSTORE_INFO = 
+			"select * " +
+			"from   sys.sysdiskstores " +
+			"where  name = '%s'";
 }

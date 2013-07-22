@@ -1,9 +1,6 @@
 TODO
 ----
 
-1. It will be nice if the various data loading - exporting, importing utilities available via 
-the 'sqlf' command line is also incorporated. i.e. DDLUtils commands
-2. Will be nice to add admin capabilities like - backup, restore, etc. Maybe, just have to provide 
-a server side destination directory.
+Whats needs to be added, based on user input here.
 
-  - view async event listener for TABLE (Table queries)
+....

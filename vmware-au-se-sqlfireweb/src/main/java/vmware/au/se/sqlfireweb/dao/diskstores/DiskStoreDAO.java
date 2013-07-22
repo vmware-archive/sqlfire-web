@@ -31,5 +31,7 @@ public interface DiskStoreDAO
 	public List<DiskStore> retrieveDiskStoreForCreateList(String userKey) throws SqlFireException;
 	
 	public Result simplediskStoreCommand (String diskStoreName, String type, String userKey) throws SqlFireException;
+	
+	public javax.servlet.jsp.jstl.sql.Result getDiskstoreInfo (String diskStoreName, String userKey) throws SqlFireException;
 
 }
