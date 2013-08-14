@@ -21,6 +21,7 @@ package vmware.au.se.sqlfireweb.dao.asyncevent;
 
 public interface Constants 
 {
+	// sqlfire 1.1.1 = server_groups
 	public static final String USER_ASYNCEVENTS = 
 			"select id, listener_class, server_group, is_started " +
 			"from   sys.ASYNCEVENTLISTENERS " +
