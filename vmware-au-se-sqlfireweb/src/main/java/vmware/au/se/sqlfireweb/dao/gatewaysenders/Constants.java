@@ -23,7 +23,7 @@ public interface Constants
 {
 	// sqlfire 1.1.1 = server_groups
 	public static final String USER_GATEWAY_SENDERS = 
-			"select sender_id, remote_ds_id, server_group, is_started " +
+			"select sender_id, remote_ds_id, server_groups, is_started " +
 			"from sys.GATEWAYSENDERS " +
 			"where sender_id like ? " +
 			"order by 1";
