@@ -248,6 +248,25 @@
       ]]></value>
     </property>
   </bean>
+
+  <bean id="membersForTable" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
+    <property name="queryDescription">
+      <value>Members hosting table data</value>
+    </property>
+    <property name="paramMap">
+     <map>
+       <entry key="1" value="Schema Name" />
+       <entry key="2" value="Table Name" />
+     </map>
+    </property>
+    <property name="query">
+      <value><![CDATA[
+        select id from (select id, servergroups from sys.members where hostdata = 1) as a, sys.systables b 
+        where b.tableschemaname = ? and b.tablename = ? 
+        and (LENGTH(b.SERVERGROUPS) = 0 or GROUPSINTERSECT(a.SERVERGROUPS, b.SERVERGROUPS))
+      ]]></value>
+    </property>
+  </bean>
   
   <bean id="schemaIndexes" class="vmware.au.se.sqlfireweb.reports.ParameterQuery">
     <property name="queryDescription">
@@ -364,7 +383,10 @@
        </entry>   
        <entry key="memoryForTable">
         <value>Memory Usage or Table</value>
-       </entry>     
+       </entry>   
+       <entry key="membersForTable">
+        <value>Members hosting table data</value>
+       </entry>   
       </map>
     </property>
   </bean>
