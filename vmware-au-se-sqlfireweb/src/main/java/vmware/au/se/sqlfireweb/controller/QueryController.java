@@ -186,7 +186,7 @@ public class QueryController
 					    		{
 					    			model.addAttribute("elapsedTime", df.format(timeTaken/1000));
 					    		}
-					    		
+				    		
 					    		addCommandToHistory(session, userPrefs, s);
 					    		
 			    			}
@@ -208,13 +208,19 @@ public class QueryController
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, true, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
-			    				addCommandToHistory(session, userPrefs, s);
+			    				if (result.getMessage().startsWith("SUCCESS"))
+			    				{
+			    					addCommandToHistory(session, userPrefs, s);
+			    				}
 			    			}
 			    			else if (determineQueryType(s).equals("ROLLBACK"))
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, false, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
-			    				addCommandToHistory(session, userPrefs, s);
+			    				if (result.getMessage().startsWith("SUCCESS"))
+			    				{
+			    					addCommandToHistory(session, userPrefs, s);
+			    				}
 			    			}
 			    			else if (determineQueryType(s).equals("CALL"))
 			    			{
@@ -272,21 +278,30 @@ public class QueryController
 				    				{
 					    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 					    				model.addAttribute("result", result);	
-					    				addCommandToHistory(session, userPrefs, s);
+					    				if (result.getMessage().startsWith("SUCCESS"))
+					    				{
+					    					addCommandToHistory(session, userPrefs, s);
+					    				}
 				    				}
 			    				}
 			    				else
 			    				{
 				    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 				    				model.addAttribute("result", result);	
-				    				addCommandToHistory(session, userPrefs, s);
+				    				if (result.getMessage().startsWith("SUCCESS"))
+				    				{
+				    					addCommandToHistory(session, userPrefs, s);
+				    				}
 			    				}
 			    			}
 			    			else
 			    			{
 			    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
-			    				addCommandToHistory(session, userPrefs, s);
+			    				if (result.getMessage().startsWith("SUCCESS"))
+			    				{
+			    					addCommandToHistory(session, userPrefs, s);
+			    				}
 			    			}
 			    			
 				    		
@@ -442,7 +457,6 @@ public class QueryController
     					model.addAttribute("procresults", procResults);
     					model.addAttribute("callstatement", procName);
     					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
-    					addCommandToHistory(session, userPrefs, s);
 					}
 					catch (Exception ex)
 					{
@@ -594,7 +608,10 @@ public class QueryController
 	    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 	    			}
 	    			
-	    			addCommandToHistory(session, userPrefs, s);
+    				if (result.getMessage().startsWith("SUCCESS"))
+    				{
+    					addCommandToHistory(session, userPrefs, s);
+    				}
 	    			
 	    			if (determineQueryType(s).equals("INSERT"))
 	    			{
