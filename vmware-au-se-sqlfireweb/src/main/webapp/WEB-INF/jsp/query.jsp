@@ -173,6 +173,11 @@ SQL File : <input id="sqlfilename" type="file" name="sqlfilename" size="20" maxl
   <img class="icon" src="../themes/original/img/rollback.png" alt="Commit" border="0" />
   Rollback
 </a>
+&nbsp; &nbsp;
+<a href="history" title="History">
+  <img class="icon" src="../themes/original/img/b_props.png" alt="History" border="0" />
+  History
+</a>
 
 <div id="queryboxcontainer">
 <fieldset id="querybox">

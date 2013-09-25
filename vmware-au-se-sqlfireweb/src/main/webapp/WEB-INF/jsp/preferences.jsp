@@ -79,6 +79,10 @@ Specify at runtime the preferences you wish to use across display pages within S
    <td><input type="text" name="maxRecordsinSQLQueryWindow" size="10" value="${userPref.maxRecordsinSQLQueryWindow}" onkeypress="return isNumberKey(event)" /></td>
   </tr>
   <tr>
+   <td align="right">Command History SQL Worksheet:</td>
+   <td><input type="text" name="historySize" size="10" value="${userPref.historySize}" onkeypress="return isNumberKey(event)" /></td>
+  </tr>
+  <tr>
    <td align="right">Connection Auto Commit:</td>
    <td>
      <select name="autoCommit">

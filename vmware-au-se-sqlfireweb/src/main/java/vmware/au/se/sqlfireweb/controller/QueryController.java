@@ -25,6 +25,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -73,6 +74,7 @@ public class QueryController
     	}
     	
     	logger.debug("Received request to show query worksheet");
+    	UserPref userPrefs = (UserPref) session.getAttribute("prefs");
     	
     	String action = request.getParameter("action");
     	if (action != null)
@@ -86,11 +88,13 @@ public class QueryController
     		{
     			logger.debug("commit action requested");
     			result = QueryUtil.runCommitOrRollback(conn, true, "N");
+    			addCommandToHistory(session, userPrefs, "commit");
     		}
     		else if (action.trim().equals("rollback"))
     		{
     			logger.debug("rollback action requested");
     			result = QueryUtil.runCommitOrRollback(conn, false, "N");
+    			addCommandToHistory(session, userPrefs, "rollback");
     		}
     		
     		model.addAttribute("result", result);
@@ -182,15 +186,18 @@ public class QueryController
 					    		{
 					    			model.addAttribute("elapsedTime", df.format(timeTaken/1000));
 					    		}
+					    		
+					    		addCommandToHistory(session, userPrefs, s);
+					    		
 			    			}
 			    		}
 			    		catch (Exception ex)
 			    		{
-			    			result.setCommand(query);
+			    			result.setCommand(s);
 			    			result.setMessage(ex.getMessage() == null ? "Unable to run query" : ex.getMessage());
 			    			result.setRows(-1);
 			    			model.addAttribute("result", result);
-			    			model.addAttribute("query", query);
+			    			model.addAttribute("query", s);
 			    		}
 			    	}
 			    	else
@@ -201,11 +208,13 @@ public class QueryController
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, true, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
+			    				addCommandToHistory(session, userPrefs, s);
 			    			}
 			    			else if (determineQueryType(s).equals("ROLLBACK"))
 			    			{
 			    				result = QueryUtil.runCommitOrRollback(conn, false, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
+			    				addCommandToHistory(session, userPrefs, s);
 			    			}
 			    			else if (determineQueryType(s).equals("CALL"))
 			    			{
@@ -248,6 +257,7 @@ public class QueryController
 					    					model.addAttribute("procresults", procResults);
 					    					model.addAttribute("callstatement", procName);
 					    					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
+					    					addCommandToHistory(session, userPrefs, s);
 				    					}
 				    					catch (Exception ex)
 				    					{
@@ -261,30 +271,34 @@ public class QueryController
 				    				else
 				    				{
 					    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
-					    				model.addAttribute("result", result);			    					
+					    				model.addAttribute("result", result);	
+					    				addCommandToHistory(session, userPrefs, s);
 				    				}
 			    				}
 			    				else
 			    				{
 				    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 				    				model.addAttribute("result", result);	
+				    				addCommandToHistory(session, userPrefs, s);
 			    				}
 			    			}
 			    			else
 			    			{
 			    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 			    				model.addAttribute("result", result);
+			    				addCommandToHistory(session, userPrefs, s);
 			    			}
 			    			
 				    		
 			    		}
 			    	}
+			    	
 	        	}
 		    	else
 		    	{
 		    		logger.debug("multiple SQL statements need to be executed");
 		    		SortedMap<String, Object> queryResults = 
-		    				handleMultipleStatements(splitQueryStr, conn, userPrefs, queryAttribute);
+		    				handleMultipleStatements(splitQueryStr, conn, userPrefs, queryAttribute, session);
 		    		logger.debug("keys : " + queryResults.keySet());
 		    		model.addAttribute("sqlResultMap", queryResults);
 		    		model.addAttribute("statementsExecuted", queryResults.size()); 
@@ -322,7 +336,8 @@ public class QueryController
 
     @RequestMapping(value = "/executequery", method = RequestMethod.GET)
     public String executeQuery 
-    	(Model model, 
+    	(@ModelAttribute("queryAttribute") QueryWindow queryAttribute,
+    	 Model model, 
     	 HttpServletResponse response, 
     	 HttpServletRequest request,
          HttpSession session) throws Exception
@@ -347,29 +362,114 @@ public class QueryController
 
         QueryWindow qw = new QueryWindow();
         qw.setQuery(query);
-        qw.setQueryCount("Y");
+        qw.setElapsedTime("N");
+        qw.setExplainPlan("N");
+        qw.setQueryCount("N");
+        qw.setShowMember("N");
         
-        try
-        {
-			Result res = QueryUtil.runQuery(conn, query, userPrefs.getMaxRecordsinSQLQueryWindow());
-			model.addAttribute("queryResults", res);
-			model.addAttribute("queryAttribute", qw);
-			model.addAttribute("querysql", query);
-			
-			if (qw.getQueryCount().equals("Y"))
-			{
-				model.addAttribute("queryResultCount", res.getRowCount());
-			}
-        }
-        catch (Exception ex)
-        {
-        	CommandResult result = new CommandResult();
-			result.setCommand(query);
-			result.setMessage(ex.getMessage() == null ? "Unable to run query" : ex.getMessage());
-			result.setRows(-1);
+    	CommandResult result = new CommandResult();
+    	String s = query.trim();
+    	
+    	if (determineQueryType(s).equals("SELECT"))
+    	{
+    		try
+    		{
+    			Result res = QueryUtil.runQuery(conn, query, userPrefs.getMaxRecordsinSQLQueryWindow());
+    			logger.debug("Query run");
+    			model.addAttribute("queryResults", res);
+    			model.addAttribute("queryAttribute", qw);
+    			model.addAttribute("querysql", query);  
+    			
+    		}
+            catch (Exception ex)
+            {
+            	logger.debug("in here");
+    			result.setCommand(query);
+    			result.setMessage(ex.getMessage() == null ? "Unable to run query" : ex.getMessage());
+    			result.setRows(-1);
+    			model.addAttribute("result", result);
+    			model.addAttribute("query", query);
+            }
+    	}
+    	else if (determineQueryType(s).equals("COMMIT"))
+		{
+			result = QueryUtil.runCommitOrRollback(conn, true, qw.getElapsedTime());
 			model.addAttribute("result", result);
-			model.addAttribute("query", query);
-        }
+		}
+		else if (determineQueryType(s).equals("ROLLBACK"))
+		{
+			result = QueryUtil.runCommitOrRollback(conn, false, qw.getElapsedTime());
+			model.addAttribute("result", result);
+		}
+		else if (determineQueryType(s).equals("CALL"))
+		{
+			
+			String procName = getProcName(s);
+			
+			if (procName != null)
+			{
+				String schema = null;
+				
+				int x = procName.indexOf(".");
+				if (x != -1)
+				{
+				  	String newProcName = procName.substring((procName.indexOf(".") + 1));
+				  	schema = procName.substring(0, (procName.indexOf(".")));
+				  	procName = newProcName;
+				}
+				else
+				{
+					schema = (String) session.getAttribute("schema");
+				}
+				
+				logger.debug("schema for stored procedure = " + schema);
+				logger.debug("call statement called for proc with name " + procName);
+				
+				// need to get schema name to check proc details
+				int numberOfDynamicResultSets = 
+						QueryUtil.checkForDynamicResultSetProc (conn, schema, procName);
+				
+				if (numberOfDynamicResultSets > 0)
+				{
+					logger.debug("call statement with " + numberOfDynamicResultSets + " dynamic resultset(s)");
+					try
+					{
+    					List<Result> procResults = 
+    							QueryUtil.runStoredprocWithResultSet(conn, 
+    																 s, 
+    																 userPrefs.getMaxRecordsinSQLQueryWindow(), 
+    																 numberOfDynamicResultSets);
+    					model.addAttribute("procresults", procResults);
+    					model.addAttribute("callstatement", procName);
+    					model.addAttribute("dynamicresults", numberOfDynamicResultSets);
+    					addCommandToHistory(session, userPrefs, s);
+					}
+					catch (Exception ex)
+					{
+		    			result.setCommand(s);
+		    			result.setMessage(ex.getMessage() == null ? "Unable to run query" : ex.getMessage());
+		    			result.setRows(-1);
+		    			model.addAttribute("result", result);
+		    			model.addAttribute("query", s);				    						
+					}
+				}
+				else
+				{
+    				result = QueryUtil.runCommand(conn, s, qw.getElapsedTime());
+    				model.addAttribute("result", result);	
+				}
+			}
+			else
+			{
+				result = QueryUtil.runCommand(conn, s, qw.getElapsedTime());
+				model.addAttribute("result", result);	
+			}
+		}
+		else
+		{
+			result = QueryUtil.runCommand(conn, s, qw.getElapsedTime());
+			model.addAttribute("result", result);
+		}
 		
     	return "query";    	
     }
@@ -431,7 +531,7 @@ public class QueryController
     }
     
     private SortedMap<String, Object> handleMultipleStatements 
-    (String[] splitQueryStr, Connection conn, UserPref userPrefs, QueryWindow queryAttribute) throws SQLException
+    (String[] splitQueryStr, Connection conn, UserPref userPrefs, QueryWindow queryAttribute, HttpSession session) throws SQLException
     {
     	int counter = 9000;
     	
@@ -466,6 +566,7 @@ public class QueryController
 		    		}
 		    		
     				queryResults.put(counter + "SELECT", queryResult); 
+    				addCommandToHistory(session, userPrefs, s);
     			}
 	    		catch (Exception ex)
 	    		{
@@ -492,6 +593,8 @@ public class QueryController
 	    			{
 	    				result = QueryUtil.runCommand(conn, s, queryAttribute.getElapsedTime());
 	    			}
+	    			
+	    			addCommandToHistory(session, userPrefs, s);
 	    			
 	    			if (determineQueryType(s).equals("INSERT"))
 	    			{
@@ -521,6 +624,7 @@ public class QueryController
 	    			counter++;
 	    		}
     		}
+    		
     	}
     	
     	return queryResults;
@@ -572,6 +676,25 @@ public class QueryController
 		catch (Exception ex)
 		{
 		  return null;	
+		}
+		
+	}
+	
+	private void addCommandToHistory (HttpSession session, UserPref prefs, String sql)
+	{
+		@SuppressWarnings("unchecked")
+		LinkedList<String> historyList = (LinkedList<String>) session.getAttribute("history");
+		
+		int maxsize = prefs.getHistorySize();
+		
+		if (historyList.size() == maxsize)
+		{
+			historyList.remove((maxsize - 1));
+			historyList.addFirst(sql);
+		}
+		else
+		{
+			historyList.addFirst(sql);
 		}
 		
 	}

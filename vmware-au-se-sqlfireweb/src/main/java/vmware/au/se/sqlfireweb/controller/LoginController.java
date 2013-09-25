@@ -20,6 +20,7 @@
 package vmware.au.se.sqlfireweb.controller;
 
 import java.sql.Connection;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -91,6 +92,7 @@ public class LoginController
 	    	session.setAttribute("schema", loginAttribute.getUsername().trim().equals("") ? "APP" : loginAttribute.getUsername().toUpperCase());
 	    	session.setAttribute("url", loginAttribute.getUrl());
 	    	session.setAttribute("prefs", new UserPref());
+	    	session.setAttribute("history", new LinkedList());
 	    	
 	    	Map<String, String> schemaMap = AdminUtil.getSchemaMap();
 	    	

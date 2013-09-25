@@ -80,6 +80,8 @@ public class PrefsController
         	(Integer.parseInt(request.getParameter("maxRecordsinSQLQueryWindow")));
         userPrefs.setAutoCommit
     		((String)request.getParameter("autoCommit"));
+        userPrefs.setHistorySize
+    		(Integer.parseInt(request.getParameter("historySize")));
         
         ConnectionManager cm = ConnectionManager.getInstance();
         Connection conn = AdminUtil.getConnection((String)session.getAttribute("user_key"));

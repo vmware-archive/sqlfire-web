@@ -24,12 +24,14 @@ public class UserPref
 	private int recordsToDisplay;
 	private int maxRecordsinSQLQueryWindow;
 	private String autoCommit;
+	private int historySize;
 	
 	public UserPref()
 	{
 	   recordsToDisplay = 20;
 	   maxRecordsinSQLQueryWindow = 5000;
 	   autoCommit = "N";
+	   historySize = 50;
 	}
 	
 	public UserPref(int recordsToDisplay, int maxRecordsinSQLQueryWindow) 
@@ -62,11 +64,21 @@ public class UserPref
 		this.autoCommit = autoCommit;
 	}
 
+	
+	public int getHistorySize() {
+		return historySize;
+	}
+
+	public void setHistorySize(int historySize) {
+		this.historySize = historySize;
+	}
+
 	@Override
 	public String toString() {
 		return "UserPref [recordsToDisplay=" + recordsToDisplay
 				+ ", maxRecordsinSQLQueryWindow=" + maxRecordsinSQLQueryWindow
-				+ ", autoCommit=" + autoCommit + "]";
+				+ ", autoCommit=" + autoCommit + ", historySize=" + historySize
+				+ "]";
 	}
 	
 	
