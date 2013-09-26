@@ -49,6 +49,16 @@ Found ${historysize} command(s).
 </div>
 <br />
 
+<c:if test="${historyremoved != null}">
+  <div class="success">
+    ${historyremoved}
+  </div>
+</c:if>
+
+<br />
+<a href="history?histAction=CLEAR">Clear History</a>
+<p />
+
 <table id="table_results" class="data">
  <thead>
    <tr>

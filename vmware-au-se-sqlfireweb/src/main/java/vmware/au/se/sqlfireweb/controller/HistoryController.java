@@ -52,6 +52,17 @@ public class HistoryController
     	logger.debug("Received request to show command history");
 		UserPref userPref = (UserPref) session.getAttribute("prefs");
 		
+		String histAction = request.getParameter("histAction");
+		
+		if (histAction != null)
+		{
+			logger.debug("histAction = " + histAction);	
+			// clear history
+			session.setAttribute("history", new LinkedList());
+			
+			model.addAttribute("historyremoved", "Succesfully cleared history list");
+		}
+		
 		LinkedList historyList = (LinkedList) session.getAttribute("history");
 		
 		int maxsize = userPref.getHistorySize();
