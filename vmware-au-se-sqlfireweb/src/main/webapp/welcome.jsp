@@ -22,7 +22,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "https://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -42,7 +42,7 @@
   <img class="icon" src="./themes/original/img/b_props.png" width="16" height="16" alt="SQLFire Preferences" />
   Preferences
 </a>&nbsp; | &nbsp;
-<a href="http://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.sqlfire.1.1/about_users_guide.html" title="SQLFire Documentation" target="_top">
+<a href="https://pubs.vmware.com/vfabric53/index.jsp?topic=/com.vmware.vfabric.sqlfire.1.1/about_users_guide.html" title="SQLFire Documentation" target="_top">
   <img class="icon" src="./themes/original/img/b_docs.png" width="16" height="16" alt="SQLFire doco" />
   SQLFire Documentation
 </a>&nbsp; | &nbsp;
