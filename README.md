@@ -1,4 +1,4 @@
-SQLFire*Web - New Browser-based Database Schema Management Tool Available for SQLFire
+<h1> VMware has ended active development of this project, this repository will no longer be updated.</h1><br>SQLFire*Web - New Browser-based Database Schema Management Tool Available for SQLFire
 
 SQLFire*Web is a translation of phpmyadmin to SQLFire and the SQLFire*Web UI is
 base on the look and feel of phpmyadmin.
